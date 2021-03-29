@@ -5,14 +5,13 @@ const game = Vue.createApp({
       healthbarMonster: 100,
       dis: false,
       countCLicks: 0,
-      // firstCLick: 0,
       battleLog: [],
       endGame: true,
     }
   },
   methods: {
     monsterDamg() {
-      let damagePlayer = Math.floor(Math.random() * 20)
+      let damagePlayer = Math.floor(Math.random() * 7)
       this.healthbarPlayer -= damagePlayer
       this.battleLog.push('Герой получил урона: ' + damagePlayer)
     },
@@ -30,13 +29,12 @@ const game = Vue.createApp({
       this.monsterDamg()
       if(this.healthbarPlayer <= 0) {
         this.healthbarPlayer = 0
-        alert('you lose')
+        alert('win Monster')
       }
       if(this.healthbarMonster <= 0) {
         this.healthbarMonster = 0
-        alert('you win')
+        alert('win User')
       }
-      
       this.countClick()
     },
     specialAttackPlayer() {
@@ -59,13 +57,11 @@ const game = Vue.createApp({
         this.battleLog.push('Герой вылечился на: ' + healPlayer)
       }
       this.countClick()
-      
     },
     surrend() {
       this.endGame = !this.endGame
     },
-  }
+  },
 })
-
 
 game.mount('#game')
