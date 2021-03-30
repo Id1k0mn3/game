@@ -1,6 +1,6 @@
-const RANDOM_DAMAGE_MONSTER  = Math.floor(Math.random() * 7)
-const RANDOM_DAMAGE_HERO = Math.floor(Math.random() * 20)
-const HEAL_HERO = Math.floor(Math.random() * 50)
+const DAMAGE_MONSTER = 7
+const DAMAGE_HERO = 20
+const HEAL_HERO = 50
 const game = Vue.createApp({
   data() {
     return {
@@ -14,8 +14,9 @@ const game = Vue.createApp({
   },
   methods: {
     monsterDamg() {
-      this.healthbarPlayer -= RANDOM_DAMAGE_HERO
-      this.battleLog.push('Герой получил урона: ' + RANDOM_DAMAGE_HERO)
+      let damagePlayer = Math.floor(Math.random() * DAMAGE_MONSTER)
+      this.healthbarPlayer -= damagePlayer
+      this.battleLog.push('Герой получил урона: ' + damagePlayer)
     },
     countClick() {
       this.countCLicks++
@@ -25,8 +26,9 @@ const game = Vue.createApp({
       }
     },
     attackPlayer() {
-      this.healthbarMonster -= RANDOM_DAMAGE_MONSTER
-      this.battleLog.push('Монстр получил урона: ' + RANDOM_DAMAGE_MONSTER)
+      let damageMonster = Math.floor(Math.random() * DAMAGE_HERO)
+      this.healthbarMonster -= damageMonster
+      this.battleLog.push('Монстр получил урона: ' + damageMonster)
       this.monsterDamg()
       if(this.healthbarPlayer <= 0) {
         this.healthbarPlayer = 0
@@ -41,19 +43,21 @@ const game = Vue.createApp({
     specialAttackPlayer() {
       this.countClicks = 0
       //this.firstCLick++
-      this.healthbarMonster -= RANDOM_DAMAGE_MONSTER * 2
+      let damageMonster = Math.floor(Math.random() * DAMAGE_HERO)
+      this.healthbarMonster -= damageMonster * 2
       this.dis = true
-      this.battleLog.push('Cупер удар нанес урона: ' + RANDOM_DAMAGE_MONSTER * 2)
+      this.battleLog.push('Cупер удар нанес урона: ' + damageMonster * 2)
       this.monsterDamg()
     },
     healHero() {
       this.monsterDamg()
       if(this.healthbarPlayer <= 100) {
-        this.healthbarPlayer += HEAL_HERO
+        let healPlayer = Math.floor(Math.random() * HEAL_HERO)
+        this.healthbarPlayer += healPlayer
         if(this.healthbarPlayer >= 100) {
           this.healthbarPlayer = 100
         }
-        this.battleLog.push('Герой вылечился на: ' + HEAL_HERO)
+        this.battleLog.push('Герой вылечился на: ' + healPlayer)
       }
       this.countClick()
     },
